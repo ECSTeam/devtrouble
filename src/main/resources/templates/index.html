@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div>
+		<p>
+			<a href="oom" onclick="dooom()">Out of Memory</a>
+		</p>
+	</div>
+	<div>
+		<h3>Output:</h3>
+		<div id="messages"></div>
+	</div>
+
+	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+	<script type="text/javascript">
+	
+		function dooom() {
+			var messageList = $("#messages");
+			
+			messageList.append("<p>Calling oom endpoint...</p>");
+			
+			var socket = new SockJS('/talktome');
+			var stompClient = Stomp.over(socket);
+			
+            stompClient.connect({ }, function(frame) {
+			// subscribe to the /topic/message endpoint
+			stompClient.subscribe("/topic/message", function(data) {
+				var message = data.body;
+				messageList.append("<p>" + message + "</p>");
+			});
+          });
+		}
+
+	</script>
+
+</body>
+</html>

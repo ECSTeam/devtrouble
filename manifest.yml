@@ -1,0 +1,9 @@
+---
+applications:
+- name: devtrouble
+  memory: 512M
+  instances: 1
+#  host: devtrouble-${random-word}
+  path: target/devtrouble-0.0.1-SNAPSHOT.jar
+#  env:
+#    JAVA_OPTS: -agentlib:jdwp=transport=dt_socket,address=10.195.8.95:8999
