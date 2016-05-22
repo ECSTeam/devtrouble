@@ -41,6 +41,9 @@ public class OomController {
     public void generateOOM() throws Exception {
     	
     	String memtimedelay = System.getenv(OomController.MEM_INCREASE_DELAY);
+    	if (memtimedelay == null) {
+    		memtimedelay = "2"; // a lazy way to set this default if env isn't set
+    	}
     	
     	//Map<String, String> env = System.getenv();
         //for (String envName : env.keySet()) {
